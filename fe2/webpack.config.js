@@ -18,7 +18,6 @@ module.exports = env => {
     },
     devServer: {
       contentBase: path.resolve(__dirname, 'dist'),
-//      publicPath: '/dist',
       open: true,
       clientLogLevel: 'silent',
       port: 9000,

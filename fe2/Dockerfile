@@ -6,7 +6,6 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 
-
 USER node
 
 RUN npm install
@@ -21,7 +20,5 @@ COPY src ./src/
 
 EXPOSE 9000
 
-# ENTRYPOINT /bin/sh
 
 ENTRYPOINT ["npm", "run", "dev"]
-# ENTRYPOINT ["npm", "run", "develop"]

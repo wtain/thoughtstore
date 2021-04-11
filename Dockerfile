@@ -1,9 +1,6 @@
-#FROM tomcat:8.0-alpine
 FROM openjdk:12-alpine
 FROM maven:alpine
-# WORKDIR /target
 WORKDIR /usr/app
-# ADD ./target/thoughtStore-1.0-SNAPSHOT.jar /usr/local/tomcat/webapps/
 
 ADD pom.xml /usr/app
 RUN mvn verify clean --fail-never
@@ -37,6 +34,5 @@ RUN mvn clean install -DskipTests
 ADD ./target/thoughtStore-1.0-SNAPSHOT.jar /usr/app
 
 EXPOSE 8080
-#CMD ["catalina.sh", "run"]
+
 ENTRYPOINT ["java","-jar","/usr/app/thoughtStore-1.0-SNAPSHOT.jar"]
-# ENTRYPOINT /bin/bash
