@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+
+  thoughtstore:
+#    image: openjdk:12-alpine
+    image: thoughtstore
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8080
+#    command: sh -c "java -cp /usr/app/thoughtStore-1.0-SNAPSHOT.lib/ -jar /usr/app/thoughtStore-1.0-SNAPSHOT.jar"
+    working_dir: /usr/app
+    volumes:
+      - C://Users/ramiz//.m2//repository:/root/.m2/repository
+      - ./target:/usr/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: testpassword
+      MYSQL_DB: thoughtstore
+      FRONTEND_ORIGIN: http://127.0.0.1:9000
+
+  thoughtstore-frontend:
+    image: thoughtstore-frontend
+    build:
+      context: ./fe2/
+      dockerfile: Dockerfile
+    ports:
+      - 9000:9000
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - thoughtstore-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: testpassword
+      MYSQL_DATABASE: thoughtstore
+
+volumes:
+  thoughtstore-mysql-data:
